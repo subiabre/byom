@@ -21,6 +21,8 @@ services:
       - '9000'
     volumes:
       - ./app/api:/app
+      - /app/vendor
+      - /app/var
     depends_on:
       - db
 
