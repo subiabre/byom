@@ -14,3 +14,10 @@ RUN pecl install apcu \
 WORKDIR /app
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+COPY app/api/composer.json app/api/composer.lock /app/
+RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer
+RUN composer dump-autoload --no-scripts --no-dev --optimize
+
+RUN bin/console doctrine:database:create
+RUN bin/console doctrine:schema:update --force
