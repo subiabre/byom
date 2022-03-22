@@ -21,6 +21,8 @@ services:
       - '9000'
     volumes:
       - ./app/api:/app
+      - ${LOCAL_STORAGE_PATH}/:/local
+      - ./docker/php/conf.d/docker-php-ram-limit.ini:/usr/local/etc/php/conf.d/docker-php-ram-limit.ini
     depends_on:
       - db
 
