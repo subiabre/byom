@@ -1,4 +1,6 @@
 <script>
+    import Head from "$lib/components/Head.svelte";
+
     import SongList from "$lib/components/SongList/SongList.svelte";
     import SongPlayer from "$lib/components/SongPlayer.svelte";
 
@@ -9,11 +11,7 @@
     }
 </script>
 
-<SongList on:playSong={handlePlay}/>
-<SongPlayer bind:play />
+<Head />
 
-<style>
-    :global(body) {
-        background-color: #030303;
-    }
-</style>
+<SongList on:playSong={handlePlay} />
+<SongPlayer bind:play />
