@@ -11,10 +11,9 @@ RUN pecl install apcu \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
-WORKDIR /app
+WORKDIR /www
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-COPY app/api/composer.json app/api/composer.lock /app/
+COPY app/api/composer.json app/api/composer.lock ./
 RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer
 RUN composer dump-autoload --no-scripts --no-dev --optimize

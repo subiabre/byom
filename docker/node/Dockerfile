@@ -1,19 +1,18 @@
-FROM node:16
+FROM node:16-alpine
 
-RUN apt update && apt install -y \
-    bash curl
+WORKDIR /root
+COPY app/web/package.json app/web/package-lock.json ./
+RUN npm i --no-optional
 
-WORKDIR /app
-
-COPY app/web/svelte.config.js app/web/package*.json /app/
-COPY app/web/src /app/src/
-COPY app/web/static /app/static/
-
-RUN npm install
+COPY app/web .
 
 RUN npm run build
 
-EXPOSE 3000
-ENV HOST=0.0.0.0
+FROM node:16-slim
 
-CMD [ "npm", "run", "dev", "--", "--host" ]
+WORKDIR /root
+COPY --from=0 /root .
+COPY app/web .
+
+EXPOSE 3000
+CMD [ "node", "./build" ]

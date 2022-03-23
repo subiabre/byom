@@ -20,7 +20,7 @@ services:
     ports:
       - '9000'
     volumes:
-      - ./app/api:/app
+      - ./app/api:/www
       - ${LOCAL_STORAGE_PATH}/:/local
       - ./docker/php/conf.d/docker-php-ram-limit.ini:/usr/local/etc/php/conf.d/docker-php-ram-limit.ini
     depends_on:
@@ -32,7 +32,7 @@ services:
     ports:
       - '8403:80'
     volumes:
-      - ./app/api:/app
+      - ./app/api:/www
       - ${LOCAL_STORAGE_PATH}/:/local
       - ./docker/nginx/etc/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
@@ -47,7 +47,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./app/web:/app
+      - ./app/web:/root
+      - /root/node_modules
     depends_on:
       - nginx
 
