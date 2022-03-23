@@ -39,5 +39,18 @@ services:
     depends_on:
       - php
 
+  node:
+    container_name: byom-node
+    build: 
+      context: .
+      dockerfile: docker/node/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./app/web:/root
+      - /root/node_modules
+    depends_on:
+      - nginx
+
 volumes:
   db-data:
