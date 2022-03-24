@@ -21,7 +21,7 @@
 
     async function playSong(data) {
         song = data;
-        stream = `${api.root()}/${data.storage.path}`;
+        stream = `${api.root()}${data.storage.path}`;
 
         await player.load();
         player.play();

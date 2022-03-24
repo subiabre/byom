@@ -7,9 +7,9 @@ const host = () => window?.location?.hostname;
 
 /**
  * Obtain the port address for the api
- * @returns {Number}
+ * @returns {String | Boolean}
  */
-const port = () => 8403;
+const port = () => import.meta.env.VITE_API_PORT;
 
 /**
  * The address from `host()` and `port()`

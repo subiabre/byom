@@ -4,10 +4,6 @@ import adapter from '@sveltejs/adapter-node';
 const config = {
 	kit: {
 		adapter: adapter()
-	},
-	server: {
-		host: true,
-		port: 5000
 	}
 };
 
