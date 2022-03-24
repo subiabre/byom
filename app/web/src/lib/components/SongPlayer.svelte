@@ -1,26 +1,52 @@
 <script>
     import api from "$lib/utils/api";
     import { title } from "$lib/stores/title";
+    import SongPicture from "./Song/SongPicture.svelte";
+
     export const play = (song) => playSong(song);
 
     let player;
     let stream;
+    let song = {
+        id: 1,
+        title: "",
+        album: "",
+        artist: "",
+        metadata: {
+            playtime: 0,
+            totaltracks: 0,
+            tracknumber: 0,
+        },
+    };
 
-    async function playSong(song) {
-        title.update(value => `${song.title} @ Byom`);
-        stream = `${api.root()}/${song.storage.path}`;
+    async function playSong(data) {
+        song = data;
+        stream = `${api.root()}/${data.storage.path}`;
 
         await player.load();
         player.play();
+
+        title.update(() => `${data.title} @ Byom`);
     }
 </script>
 
-<audio bind:this={player} src={stream} controls />
+<div>
+    <SongPicture width="10%" {song} />
+    <audio bind:this={player} src={stream} controls />
+</div>
 
 <style>
-    audio {
+    div {
         width: 100%;
-        position: fixed;
+        height: 16vh;
+        display: flex;
         bottom: 0;
+        position: fixed;
+        color: white;
+        background-color: black;
+    }
+
+    div audio {
+        flex: auto;
     }
 </style>

@@ -108,7 +108,7 @@
     }
 
     ul {
-        height: calc(100% - 6.5em);
+        height: calc(100% - 4em - 16vh);
         margin: 0;
         padding: 0;
         list-style: none;

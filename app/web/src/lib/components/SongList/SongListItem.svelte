@@ -1,6 +1,7 @@
 <script>
     import api from "$lib/utils/api";
     import { afterUpdate, createEventDispatcher } from "svelte";
+    import SongPicture from "../Song/SongPicture.svelte";
 
     export let song = {
         id: 0,
@@ -24,14 +25,13 @@
     }
 
     afterUpdate(() => {
+        picture = api.picture(song.id);
         albumData = `${song.album} - ${song.metadata.tracknumber}/${song.metadata.totaltracks} (${song.metadata.playtime})`;
     });
-
-    $: picture = api.picture(song.id);
 </script>
 
 <li style="--picture:url({picture})" on:click={playSong}>
-    <div class="img" alt={`Picture for ${song.title}`} title={song.title} />
+    <SongPicture width="25%" {song} />
     <div class="data">
         <h4 title={song.title} class="title">{song.title}</h4>
         <p title={albumData}>{albumData}</p>
@@ -61,16 +61,6 @@
     li:hover {
         cursor: pointer;
         box-shadow: 0 0 1em #333;
-    }
-
-    .img {
-        flex: 1;
-        width: 25%;
-        background-image: var(--picture);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: rgba(0, 0, 0, 1);
     }
 
     .data {
