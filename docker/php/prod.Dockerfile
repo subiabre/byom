@@ -14,3 +14,6 @@ RUN pecl install apcu \
 WORKDIR /www
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY api/composer.json api/composer.lock ./
+RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer
+RUN composer dump-autoload --no-scripts --no-dev --optimize
