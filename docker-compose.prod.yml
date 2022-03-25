@@ -27,6 +27,9 @@ services:
       - '${WEB_PORT}:3000'
     volumes:
       - ./web:/root
+      - /root/build
+      - /root/.svelte-kit
+      - /root/node_modules
     depends_on:
       - nginx
 
