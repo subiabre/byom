@@ -20,9 +20,12 @@ services:
     ports:
       - '9000'
     volumes:
+      - app-public:/www/public
       - ./api:/www
-      - ${LOCAL_STORAGE_PATH}/:/local
       - ./docker/php/conf.d/docker-php-ram-limit.ini:/usr/local/etc/php/conf.d/docker-php-ram-limit.ini
+      - ${LOCAL_STORAGE_PATH}/:/local
+      - /www/var
+      - /www/vendor
     depends_on:
       - db
 
@@ -32,12 +35,14 @@ services:
     ports:
       - '${API_PORT}:80'
     volumes:
+      - app-public:/www/public
       - ./api:/www
-      - ${LOCAL_STORAGE_PATH}/:/local
       - ./docker/nginx/etc/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ${LOCAL_STORAGE_PATH}/:/local
     depends_on:
       - php
 
 volumes:
   db-data:
+  app-public:
