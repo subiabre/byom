@@ -12,6 +12,9 @@ services:
       - ./api:/www
       - ${LOCAL_STORAGE_PATH}/:/local
       - ./docker/php/conf.d/docker-php-ram-limit.ini:/usr/local/etc/php/conf.d/docker-php-ram-limit.ini
+      - /www/var
+      - /www/public
+      - /www/vendor
     depends_on:
       - db
 
