@@ -2,21 +2,9 @@ version: '3.7'
 
 services:
   php:
-    container_name: byom-php
     build: 
       context: .
       dockerfile: docker/php/prod.Dockerfile
-    ports:
-      - '9000'
-    volumes:
-      - ./api:/www
-      - ${LOCAL_STORAGE_PATH}/:/local
-      - ./docker/php/conf.d/docker-php-ram-limit.ini:/usr/local/etc/php/conf.d/docker-php-ram-limit.ini
-      - /www/var
-      - /www/public
-      - /www/vendor
-    depends_on:
-      - db
 
   node:
     container_name: byom-node
@@ -35,6 +23,3 @@ services:
       - /root/node_modules
     depends_on:
       - nginx
-
-volumes:
-  db-data:
