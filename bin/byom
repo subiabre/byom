@@ -1,0 +1,39 @@
+#!/bin/sh
+
+sync_env()
+{
+    truncate -s 0 ./web/.env
+    grep _PORT .env | while read -r line ; do
+        echo "VITE_$line" >> ./web/.env
+    done
+}
+
+compose_docker()
+{
+    if [ $1 = "docker" ]; then
+        shift
+    fi
+
+    docker-compose -f docker-compose.yml -f docker-compose.prod.yml $@
+}
+
+case $1 in
+    "sync_env")
+        sync_env
+    ;;
+
+    "docker")
+        compose_docker $@
+    ;;
+
+    "deploy")
+        sync_env
+        compose_docker up -d --build
+    ;;
+
+    "conclude")
+        compose_docker down
+    ;;
+esac
+
+exit 0
